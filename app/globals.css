@@ -2,32 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@layer base {
+  html[dir="rtl"] body { font-family: 'Noto Nastaliq Urdu', serif; }
+  html[dir="ltr"] body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-plum text-white font-semibold text-sm hover:bg-plum-l transition-all duration-200 shadow-md hover:-translate-y-0.5;
   }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-plum text-plum font-semibold text-sm hover:bg-plum-p transition-all duration-200;
+  }
+  .btn-teal {
+    @apply inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-teal text-white font-semibold text-sm hover:bg-teal-l transition-all duration-200 shadow-md hover:-translate-y-0.5;
+  }
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-paper3 p-6 transition-all duration-200 hover:shadow-card2 hover:-translate-y-1;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-black text-ink text-center mb-2;
+  }
+  .section-sub {
+    @apply text-ink3 text-center text-base md:text-lg mb-12 max-w-2xl mx-auto;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-plum-p text-plum border border-plum/20;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .font-urdu { font-family: 'Noto Nastaliq Urdu', serif; }
+  .font-display { font-family: 'Fraunces', Georgia, serif; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
+  .animate-float { animation: float 3s ease-in-out infinite; }
 }

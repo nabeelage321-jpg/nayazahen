@@ -1,113 +1,291 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { useLang } from '@/lib/lang';
+import { CITIES } from '@/data/cities';
+import { FEATURES, EARN_TASKS, TESTIMONIALS } from '@/data/index';
+import LeadForm from '@/components/LeadForm';
+
+/* ---------------------------------------------------------
+   Animated counter — counts up once the element scrolls
+   into view, then stays put. Respects reduced-motion.
+--------------------------------------------------------- */
+function AnimatedCounter({ target, suffix = '', duration = 1600 }) {
+  const ref = useRef(null);
+  const [value, setValue] = useState(0);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      setValue(target);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !started.current) {
+            started.current = true;
+            const start = performance.now();
+            const tick = (now) => {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
+              setValue(Math.round(target * eased));
+              if (progress < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <span ref={ref}>
+      {value.toLocaleString('en-US')}
+      {suffix}
+    </span>
+  );
+}
+
+export default function HomePage() {
+  const { lang } = useLang();
+  const isEn = lang === 'en';
+
+  const stats = [
+    { target: 60, suffix: '+', labelEn: 'Cities Covered', labelUr: 'شہر' },
+    { target: 500, suffix: '+', labelEn: 'Kids Learning', labelUr: 'بچے سیکھ رہے ہیں' },
+    { target: 5, suffix: '', labelEn: 'Languages', labelUr: 'زبانیں' },
+    { target: 11, suffix: '', labelEn: 'Ways to Earn', labelUr: 'کمانے کے طریقے' },
+  ];
+
+  return (
+    <main>
+      {/* ============ HERO ============ */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-plum to-ink text-white">
+        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_20%_20%,white,transparent_35%)]" />
+        <div className="relative max-w-6xl mx-auto px-6 pt-28 pb-24 text-center">
+          <span className="badge bg-white/10 !text-white border border-white/20">
+            پاکستان کا پہلا AI تعلیمی پلیٹ فارم
+          </span>
+
+          <h1 className="font-urdu font-black text-4xl sm:text-5xl md:text-6xl leading-[1.6] mt-6 mb-4" dir="rtl">
+            نیا ذہن — سیکھیں، کمائیں، آگے بڑھیں
+          </h1>
+
+          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10">
+            {isEn
+              ? 'Free AI education for children ages 3–21, in Urdu, Punjabi, Sindhi, Pashto & English — with real PKR earnings from age 7.'
+              : 'عمر 3 سے 21 سال کے بچوں کے لیے مفت AI تعلیم — اردو، پنجابی، سندھی، پشتو اور انگریزی میں۔ عمر 7 سال سے حقیقی کمائی۔'}
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/signup" className="btn-primary">
+              {isEn ? 'Start Free' : 'مفت شروع کریں'}
+            </Link>
+            <Link href="/earn" className="btn-secondary !border-white/40 !text-white hover:!bg-white/10">
+              {isEn ? 'Start Earning' : 'کمانا شروع کریں'}
+            </Link>
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        {/* ============ STATS BAR ============ */}
+        <div className="relative border-t border-white/10 bg-black/20">
+          <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {stats.map((s) => (
+              <div key={s.labelEn}>
+                <div className="font-display font-black text-3xl md:text-4xl text-gold-l">
+                  <AnimatedCounter target={s.target} suffix={s.suffix} />
+                </div>
+                <div className="text-sm text-white/60 mt-1">
+                  {isEn ? s.labelEn : s.labelUr}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+      {/* ============ SIX PILLARS ============ */}
+      <section className="section max-w-6xl mx-auto px-6 py-20">
+        <h2 className="section-title">
+          {isEn ? 'Six Pillars of Naya Zehan' : 'نئے ذہن کے چھ ستون'}
+        </h2>
+        <p className="section-sub">
+          {isEn
+            ? 'One platform, six ways to grow — from games to real income.'
+            : 'ایک پلیٹ فارم، ترقی کے چھ راستے — گیمز سے لے کر حقیقی آمدنی تک۔'}
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {FEATURES.map((f) => (
+            <div key={f.id} className="card p-6 relative overflow-hidden">
+              <div
+                className="absolute top-0 left-0 right-0 h-1"
+                style={{ backgroundColor: f.color }}
+              />
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl mb-4"
+                style={{ backgroundColor: `${f.color}1A` }}
+              >
+                {f.icon}
+              </div>
+              <h3 className="font-display font-bold text-lg text-ink mb-2">
+                {isEn ? f.titleEn : f.titleUr}
+              </h3>
+              <p className="text-ink3 text-sm leading-relaxed">
+                {isEn ? f.descEn : f.descUr}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ CITIES PREVIEW ============ */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="section-title">
+          {isEn ? 'Built for Your City' : 'آپ کے شہر کے لیے بنایا گیا'}
+        </h2>
+        <p className="section-sub">
+          {isEn
+            ? 'Local content and local earning opportunities in 60+ Pakistani cities.'
+            : '60 سے زائد پاکستانی شہروں میں مقامی مواد اور مقامی مواقع۔'}
+        </p>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+          {CITIES.slice(0, 8).map((city) => (
+            <Link key={city.id} href={`/cities/${city.id}`} className="card p-5 text-center block">
+              <div className="text-3xl mb-2">{city.emoji}</div>
+              <div className="font-display font-bold text-ink">{city.name}</div>
+              <div className="font-urdu text-ink3 text-sm mb-2" dir="rtl">{city.nameUr}</div>
+              <span className="badge">{city.province}</span>
+              <div className="text-xs text-ink3 mt-3 flex justify-center gap-3">
+                <span>👦 {city.kids}</span>
+                <span>🏫 {city.schools}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center mt-10">
+          <Link href="/cities" className="btn-secondary">
+            {isEn ? 'See All Cities' : 'تمام شہر دیکھیں'}
+          </Link>
+        </div>
+      </section>
+
+      {/* ============ EARN TASKS PREVIEW ============ */}
+      <section className="bg-gradient-to-br from-teal to-[#043D2B] py-20">
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="section-title !text-white">
+            {isEn ? 'Kids Really Earn Here' : 'یہاں بچے واقعی کماتے ہیں'}
           </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
+          <p className="section-sub !text-white/70">
+            {isEn
+              ? 'Real tasks. Real clients. Real PKR — paid via JazzCash & EasyPaisa.'
+              : 'حقیقی کام۔ حقیقی کلائنٹس۔ حقیقی روپے — JazzCash اور EasyPaisa کے ذریعے۔'}
           </p>
-        </a>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {EARN_TASKS.slice(0, 6).map((task) => (
+              <div key={task.id} className="rounded-2xl bg-white/10 border border-white/15 backdrop-blur-sm p-6">
+                <div className="text-2xl mb-3">{task.icon}</div>
+                <h3 className="font-display font-bold text-white mb-1">
+                  {isEn ? task.titleEn : task.titleUr}
+                </h3>
+                <p className="text-white/60 text-sm mb-4">
+                  {isEn ? task.descEn : task.descUr}
+                </p>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-gold-l font-semibold">{task.perTask}</span>
+                  <span className="text-white/50">{task.age}</span>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <div className="text-center mt-10">
+            <Link href="/earn" className="btn-primary !bg-gold !text-ink">
+              {isEn ? 'See All Ways to Earn' : 'کمانے کے تمام طریقے دیکھیں'}
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+      {/* ============ TESTIMONIALS ============ */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+        <h2 className="section-title">
+          {isEn ? 'What Families Are Saying' : 'خاندان کیا کہتے ہیں'}
+        </h2>
+        <p className="section-sub">
+          {isEn ? 'Real stories from real Pakistani families.' : 'حقیقی پاکستانی خاندانوں کی کہانیاں۔'}
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {TESTIMONIALS.map((t) => (
+            <div key={t.id} className="card p-6">
+              <div className="text-3xl mb-3">{t.avatar}</div>
+              <p className="text-ink text-sm leading-relaxed mb-4">
+                &ldquo;{isEn ? t.quoteEn : t.quoteUr}&rdquo;
+              </p>
+              <div className="text-sm font-semibold text-ink">
+                {isEn ? t.name : t.nameUr}
+              </div>
+              <div className="text-xs text-ink3">{t.role} · {t.city}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ============ LEAD FORM ============ */}
+      <section className="bg-paper2 py-20">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <h2 className="section-title">
+            {isEn ? 'Be First to Know' : 'سب سے پہلے جانیں'}
           </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
+          <p className="section-sub">
+            {isEn
+              ? 'Leave your details and we\u2019ll reach out when Naya Zehan launches in your city.'
+              : 'اپنی تفصیلات چھوڑیں، جب نیا ذہن آپ کے شہر میں لانچ ہو گا تو ہم رابطہ کریں گے۔'}
           </p>
-        </a>
-      </div>
+          <LeadForm />
+        </div>
+      </section>
+
+      {/* ============ FINAL CTA ============ */}
+      <section className="bg-plum py-20">
+        <div className="max-w-3xl mx-auto px-6 text-center text-white">
+          <h2 className="font-display font-black text-3xl md:text-4xl mb-4">
+            {isEn ? 'Your Child\u2019s Future Starts Today' : 'آپ کے بچے کا مستقبل آج شروع ہوتا ہے'}
+          </h2>
+          <p className="text-white/70 mb-8">
+            {isEn
+              ? 'Join thousands of Pakistani families already learning and earning with Naya Zehan.'
+              : 'ہزاروں پاکستانی خاندانوں کے ساتھ شامل ہوں جو پہلے ہی نئے ذہن کے ساتھ سیکھ اور کما رہے ہیں۔'}
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/signup" className="btn-primary !bg-white !text-plum">
+              {isEn ? 'Get Started Free' : 'مفت شروع کریں'}
+            </Link>
+            <Link href="/earn" className="btn-teal">
+              {isEn ? 'Explore Earning' : 'کمائی دیکھیں'}
+            </Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
