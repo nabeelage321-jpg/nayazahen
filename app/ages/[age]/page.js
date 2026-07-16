@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { AGES, EARN_TASKS } from '@/data';
+import { AGES, EARN_TASKS } from '@/data/index';
 import AgePageClient from './AgePageClient';
 
 export async function generateStaticParams() {
