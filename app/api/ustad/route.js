@@ -22,13 +22,12 @@ async function callGroq(message, history) {
     },
     body: JSON.stringify({
       model: 'llama3-8b-8192',
-      max_tokens: 400,
-      temperature: 0.7,
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
-        ...(history || []),
         { role: 'user', content: message },
       ],
+      max_tokens: 400,
+      temperature: 0.7,
     }),
   });
 

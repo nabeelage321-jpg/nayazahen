@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 const FALLBACK_TEXT = 'تھوڑا رکو بیٹا — دوبارہ کوشش کریں۔ میں ابھی تیار ہوں۔';
 
 function inferMood(text = '') {
@@ -23,8 +23,7 @@ async function callGemini(message) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ role: 'user', parts: [{ text: `${systemPrompt}\n\nمعاملہ: ${message}` }] }],
-      generationConfig: { temperature: 0.8, maxOutputTokens: 220 },
+      contents: [{ parts: [{ text: `${systemPrompt}\n\nUser: ${message}` }] }],
     }),
   });
 

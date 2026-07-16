@@ -21,15 +21,15 @@ async function callGrok(message, history, age) {
       Authorization: `Bearer ${process.env.GROK_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'grok-3-mini',
-      max_tokens: 400,
-      temperature: 0.8,
+      model: 'grok-beta',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...(age ? [{ role: 'system', content: `طالب علم کی عمر: ${age} سال` }] : []),
         ...(history || []),
         { role: 'user', content: message },
       ],
+      max_tokens: 400,
+      temperature: 0.8,
     }),
   });
 
