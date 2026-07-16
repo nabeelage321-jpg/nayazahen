@@ -39,7 +39,23 @@ async function callGroq(message, history) {
   }
 
   if (!res.ok) {
+    let bodyText = '';
+    try {
+      bodyText = await res.text();
+    } catch (readErr) {
+      bodyText = 'unable_to_read_body';
+    }
+
     const err = new Error(`groq_error_${res.status}`);
+    err.status = res.status;
+    err.body = bodyText;
+    err.provider = 'groq';
+
+    console.error('Zehan Ustad Groq error:', {
+      status: res.status,
+      body: bodyText,
+    });
+
     throw err;
   }
 
@@ -106,6 +122,8 @@ export async function POST(req) {
         return NextResponse.json({ error: 'rate_limit' }, { status: 429 });
       }
 
+      const errorMessage = groqErr?.body ? groqErr.body : 'provider_unavailable';
+
       // Fallback to OpenRouter if Groq fails for any other reason.
       try {
         const text = await callOpenRouterFallback(message, history);
@@ -113,7 +131,11 @@ export async function POST(req) {
       } catch (fallbackErr) {
         console.error('Zehan Ustad — both providers failed:', groqErr, fallbackErr);
         return NextResponse.json(
-          { error: 'provider_unavailable' },
+          {
+            error: 'provider_unavailable',
+            message: errorMessage,
+            status: groqErr?.status || 502,
+          },
           { status: 502 }
         );
       }
