@@ -19,6 +19,7 @@ const TEXT = {
   nav_teachers: { ur: 'اساتذہ', en: 'Teachers', pa: 'اساتذہ', sd: 'استاد', ps: 'ښوونکي' },
   nav_pricing: { ur: 'قیمت', en: 'Pricing', pa: 'قیمت', sd: 'قيمت', ps: 'نرخونه' },
   nav_about: { ur: 'ہمارے بارے میں', en: 'About', pa: 'ساڈے بارے', sd: 'اسان بابت', ps: 'زموږ په اړه' },
+  nav_games: { ur: 'گیمز', en: 'Games', pa: 'گیمز', sd: 'گيمز', ps: 'غیمونه' },
 };
 
 export default function Navbar() {
@@ -69,6 +70,9 @@ export default function Navbar() {
             </Link>
             <Link href="/about" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
               {t('nav_about')}
+            </Link>
+            <Link href="/games" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_games')}
             </Link>
           </div>
 
@@ -178,6 +182,13 @@ export default function Navbar() {
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
               {t('nav_about')}
+            </Link>
+            <Link
+              href="/games"
+              onClick={() => setMenuOpen(false)}
+              className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
+            >
+              {t('nav_games')}
             </Link>
             <div className="flex gap-2 px-3 pt-3 sm:hidden">
               <Link

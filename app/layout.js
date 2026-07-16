@@ -2,6 +2,10 @@ import './globals.css'
 import { LangProvider } from '@/lib/lang'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import ZehanUstad from '@/components/ZehanUstad'
+import ZehanKamai from '@/components/ZehanKamai'
+import NanoWidget from '@/components/NanoWidget'
+import RubaxWallet from '@/components/RubaxWallet'
 
 export const metadata = {
   title: "نیا ذہن | Naya Zehan — Pakistan's First AI Education Platform",
@@ -20,8 +24,12 @@ export default function RootLayout({ children }) {
       <body className="bg-paper font-body text-ink antialiased">
         <LangProvider>
           <Navbar />
+          <RubaxWallet />
           <main>{children}</main>
           <Footer />
+          <ZehanUstad />
+          <ZehanKamai />
+          <NanoWidget />
         </LangProvider>
       </body>
     </html>
