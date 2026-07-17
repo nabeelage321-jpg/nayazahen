@@ -66,23 +66,33 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/courses" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_courses')}
+                <Link href="/cities" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_cities')}
                 </Link>
               </li>
               <li>
-                <Link href="/teachers" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_teachers')}
+                <Link href="/ages" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_ages')}
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_pricing')}
+                <Link href="/earn" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_earn')}
                 </Link>
               </li>
               <li>
-                <Link href="/app" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_app')}
+                <Link href="/games" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_games')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/deen" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_deen')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/schools" className="text-white/60 hover:text-white transition-colors">
+                  {t('platform_schools')}
                 </Link>
               </li>
             </ul>
@@ -95,23 +105,23 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 text-sm">
               <li>
-                <Link href="/learn/matric" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_matric')}
+                <Link href="/deen/quran" className="text-white/60 hover:text-white transition-colors">
+                  {t('learn_quran')}
                 </Link>
               </li>
               <li>
-                <Link href="/learn/fsc" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_fsc')}
+                <Link href="/deen/duas" className="text-white/60 hover:text-white transition-colors">
+                  {t('learn_duas')}
                 </Link>
               </li>
               <li>
-                <Link href="/learn/entry-test" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_entry_test')}
+                <Link href="/deen/99names" className="text-white/60 hover:text-white transition-colors">
+                  {t('learn_names')}
                 </Link>
               </li>
               <li>
-                <Link href="/learn/english" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_english')}
+                <Link href="/quiz" className="text-white/60 hover:text-white transition-colors">
+                  {t('learn_quiz')}
                 </Link>
               </li>
             </ul>

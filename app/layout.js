@@ -6,6 +6,7 @@ import ZehanUstad from '@/components/ZehanUstad'
 import ZehanKamai from '@/components/ZehanKamai'
 import NanoWidget from '@/components/NanoWidget'
 import RubaxWallet from '@/components/RubaxWallet'
+import KhanaGhariWidget from '@/components/KhanaGhariWidget'
 
 export const metadata = {
   title: "نیا ذہن | Naya Zehan — Pakistan's First AI Education Platform",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
           <ZehanUstad />
           <ZehanKamai />
           <NanoWidget />
+          <KhanaGhariWidget />
         </LangProvider>
       </body>
     </html>

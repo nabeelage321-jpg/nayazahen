@@ -22,6 +22,8 @@ const TEXT = {
   nav_blog: { ur: 'بلاگ', en: 'Blog', pa: 'بلاگ', sd: 'بلاگ', ps: 'بلاگ' },
   nav_schools: { ur: 'اسکول', en: 'Schools', pa: 'اسکول', sd: 'اسڪول', ps: 'مدرسې' },
   nav_games: { ur: 'گیمز', en: 'Games', pa: 'گیمز', sd: 'گيمز', ps: 'غیمونه' },
+  nav_quiz: { ur: 'کوئز', en: 'Quiz', pa: 'کوئز', sd: 'کوئز', ps: 'کوئز' },
+  nav_leaderboard: { ur: 'لیڈر بورڈ', en: 'Leaderboard', pa: 'لیڈر بورڈ', sd: 'لیڈر بورڈ', ps: 'لیڈر بورډ' },
 };
 
 export default function Navbar() {
@@ -81,6 +83,12 @@ export default function Navbar() {
             </Link>
             <Link href="/games" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
               {t('nav_games')}
+            </Link>
+            <Link href="/quiz" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_quiz')}
+            </Link>
+            <Link href="/leaderboard" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_leaderboard')}
             </Link>
           </div>
 
@@ -211,6 +219,20 @@ export default function Navbar() {
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
               {t('nav_games')}
+            </Link>
+            <Link
+              href="/quiz"
+              onClick={() => setMenuOpen(false)}
+              className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
+            >
+              {t('nav_quiz')}
+            </Link>
+            <Link
+              href="/leaderboard"
+              onClick={() => setMenuOpen(false)}
+              className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
+            >
+              {t('nav_leaderboard')}
             </Link>
             <div className="flex gap-2 px-3 pt-3 sm:hidden">
               <Link
