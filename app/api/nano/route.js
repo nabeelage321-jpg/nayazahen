@@ -17,31 +17,32 @@ export async function POST(req) {
       return NextResponse.json({ error: 'message_required' }, { status: 400 });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    console.log('Nano GEMINI KEY:', !!apiKey, apiKey?.length, apiKey?.slice(0,8));
-
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
-    
-    const res = await fetch(url, {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`
+      },
       body: JSON.stringify({
-        contents: [{
-          parts: [{ text: SYSTEM_PROMPT + '\n\nبچہ: ' + message }]
-        }]
+        model: 'llama-3.1-8b-instant',
+        max_tokens: 200,
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: message }
+        ]
       })
     });
 
-    console.log('Nano Gemini status:', res.status);
+    console.log('Nano Groq status:', res.status);
 
     if (!res.ok) {
       const body = await res.text();
-      console.error('Nano Gemini error:', res.status, body);
-      throw new Error(`gemini_error_${res.status}`);
+      console.error('Nano Groq error:', res.status, body);
+      throw new Error(`groq_error_${res.status}`);
     }
 
     const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'میری سمجھ میں نہیں آیا، بیٹا — دوبارہ کہو!';
+    const text = data.choices[0].message.content;
 
     return NextResponse.json({ text, mood: 'happy' });
 

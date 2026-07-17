@@ -15,10 +15,12 @@ const LANGUAGES = [
 const TEXT = {
   login: { ur: 'لاگ ان', en: 'Login', pa: 'لاگ ان', sd: 'لاگ ان', ps: 'ننوتل' },
   signup: { ur: 'مفت اکاؤنٹ بنائیں', en: 'Sign Up', pa: 'سائن اپ', sd: 'سائن اپ', ps: 'نوم لیکنه' },
-  nav_courses: { ur: 'کورسز', en: 'Courses', pa: 'کورسز', sd: 'ڪورس', ps: 'کورسونه' },
-  nav_teachers: { ur: 'اساتذہ', en: 'Teachers', pa: 'اساتذہ', sd: 'استاد', ps: 'ښوونکي' },
-  nav_pricing: { ur: 'قیمت', en: 'Pricing', pa: 'قیمت', sd: 'قيمت', ps: 'نرخونه' },
-  nav_about: { ur: 'ہمارے بارے میں', en: 'About', pa: 'ساڈے بارے', sd: 'اسان بابت', ps: 'زموږ په اړه' },
+  nav_home: { ur: 'ہوم', en: 'Home', pa: 'ہوم', sd: 'ہوم', ps: 'کور' },
+  nav_cities: { ur: 'شہر', en: 'Cities', pa: 'شہر', sd: 'شهر', ps: 'ښار' },
+  nav_ages: { ur: 'عمر', en: 'Ages', pa: 'عمر', sd: 'عمر', ps: 'عمر' },
+  nav_earn: { ur: 'کمائی', en: 'Earn', pa: 'کمائی', sd: 'کمايو', ps: 'کمۍ' },
+  nav_blog: { ur: 'بلاگ', en: 'Blog', pa: 'بلاگ', sd: 'بلاگ', ps: 'بلاگ' },
+  nav_schools: { ur: 'اسکول', en: 'Schools', pa: 'اسکول', sd: 'اسڪول', ps: 'مدرسې' },
   nav_games: { ur: 'گیمز', en: 'Games', pa: 'گیمز', sd: 'گيمز', ps: 'غیمونه' },
 };
 
@@ -59,17 +61,23 @@ export default function Navbar() {
 
           {/* Desktop nav links */}
           <div className={`hidden md:flex items-center gap-8 ${isRTL ? 'font-urdu' : ''}`}>
-            <Link href="/courses" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
-              {t('nav_courses')}
+            <Link href="/" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_home')}
             </Link>
-            <Link href="/teachers" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
-              {t('nav_teachers')}
+            <Link href="/cities" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_cities')}
             </Link>
-            <Link href="/pricing" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
-              {t('nav_pricing')}
+            <Link href="/ages" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_ages')}
             </Link>
-            <Link href="/about" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
-              {t('nav_about')}
+            <Link href="/earn" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_earn')}
+            </Link>
+            <Link href="/blog" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_blog')}
+            </Link>
+            <Link href="/schools" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+              {t('nav_schools')}
             </Link>
             <Link href="/games" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
               {t('nav_games')}
@@ -126,7 +134,7 @@ export default function Navbar() {
 
             {/* Login / Signup - desktop only */}
             <div className={`hidden sm:flex items-center gap-2 ${isRTL ? 'font-urdu' : ''}`}>
-              <Link href="/login" className="btn-secondary text-sm px-4 py-2">
+              <Link href="/signup" className="btn-secondary text-sm px-4 py-2">
                 {t('login')}
               </Link>
               <Link href="/signup" className="btn-primary text-sm px-4 py-2">
@@ -156,32 +164,46 @@ export default function Navbar() {
         {menuOpen && (
           <div className={`md:hidden pb-4 flex flex-col gap-1 ${isRTL ? 'font-urdu text-right' : ''}`}>
             <Link
-              href="/courses"
+              href="/"
               onClick={() => setMenuOpen(false)}
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
-              {t('nav_courses')}
+              {t('nav_home')}
             </Link>
             <Link
-              href="/teachers"
+              href="/cities"
               onClick={() => setMenuOpen(false)}
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
-              {t('nav_teachers')}
+              {t('nav_cities')}
             </Link>
             <Link
-              href="/pricing"
+              href="/ages"
               onClick={() => setMenuOpen(false)}
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
-              {t('nav_pricing')}
+              {t('nav_ages')}
             </Link>
             <Link
-              href="/about"
+              href="/earn"
               onClick={() => setMenuOpen(false)}
               className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
             >
-              {t('nav_about')}
+              {t('nav_earn')}
+            </Link>
+            <Link
+              href="/blog"
+              onClick={() => setMenuOpen(false)}
+              className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
+            >
+              {t('nav_blog')}
+            </Link>
+            <Link
+              href="/schools"
+              onClick={() => setMenuOpen(false)}
+              className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]"
+            >
+              {t('nav_schools')}
             </Link>
             <Link
               href="/games"
@@ -192,7 +214,7 @@ export default function Navbar() {
             </Link>
             <div className="flex gap-2 px-3 pt-3 sm:hidden">
               <Link
-                href="/login"
+                href="/signup"
                 onClick={() => setMenuOpen(false)}
                 className="btn-secondary text-sm px-4 py-2 flex-1 text-center"
               >

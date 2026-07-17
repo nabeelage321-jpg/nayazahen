@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import { notFound } from 'next/navigation';
 import { AGES, EARN_TASKS } from '@/data/index';
 import AgePageClient from './AgePageClient';
