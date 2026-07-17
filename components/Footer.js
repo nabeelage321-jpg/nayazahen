@@ -154,9 +154,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/50">
-          <p className="font-urdu">نیا ذہن © 2025</p>
-          <p>{t('rights')}</p>
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col gap-4 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full border border-white/10 bg-white/10 px-3 py-1">🇵🇰 Made in Pakistan</span>
+            <a href="/privacy" className="hover:text-white">Privacy Policy</a>
+            <a href="/terms" className="hover:text-white">Terms of Service</a>
+            <a href="/contact" className="hover:text-white">Contact</a>
+            <a href="/about" className="hover:text-white">About</a>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="font-urdu">نیا ذہن © 2025</span>
+            <span>Launch: Aug 14, 2025</span>
+            <p>{t('rights')}</p>
+          </div>
         </div>
       </div>
     </footer>

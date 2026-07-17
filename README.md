@@ -20,6 +20,40 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+## School onboarding and communication templates
+
+### Welcome email template for schools
+Subject: Welcome to Naya Zehan — your school is now onboarded
+
+Hello {schoolName},
+
+Welcome to Naya Zehan. We are excited to support your students with safe AI learning, local-language content, and earning opportunities.
+
+Your school dashboard will be ready shortly. In the meantime, please review the student onboarding guide and share the parent consent form.
+
+Thank you,
+The Naya Zehan Team
+
+### Weekly report template
+Subject: Weekly Naya Zehan school report
+
+Hello {schoolName},
+
+This week your students completed {activityCount} learning activities and earned {rubaxEarned} Rubax. Please review participation highlights and encourage continued engagement.
+
+Best regards,
+The Naya Zehan Team
+
+### Parent notification template
+Subject: Your child has a new learning opportunity on Naya Zehan
+
+Hello {parentName},
+
+Your child has been invited to explore Naya Zehan. Please review the safety guidance and approve account access if needed.
+
+Thank you,
+The Naya Zehan Team
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

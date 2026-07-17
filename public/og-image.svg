@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" rx="36" fill="#42188C"/>
+  <rect x="48" y="48" width="1104" height="534" rx="28" fill="#F8F5E8"/>
+  <circle cx="320" cy="320" r="180" fill="#FFB703"/>
+  <path d="M236 244c27-53 79-86 139-86 95 0 173 77 173 173 0 95-78 173-173 173-61 0-112-33-139-86" fill="#FFFFFF" opacity="0.9"/>
+  <path d="M260 195h185c44 0 80 36 80 80v108c0 44-36 80-80 80H260" stroke="#42188C" stroke-width="24" fill="none" stroke-linecap="round"/>
+  <path d="M512 208l145 112-145 112" stroke="#42188C" stroke-width="24" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="600" y="390" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#42188C">Naya Zehan</text>
+  <text x="600" y="445" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#67518F">Pakistan’s first AI education platform</text>
+</svg>

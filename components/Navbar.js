@@ -30,7 +30,9 @@ export default function Navbar() {
   const { lang, setLang } = useLang();
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const langRef = useRef(null);
+  const moreRef = useRef(null);
 
   const isRTL = ['ur', 'pa', 'sd', 'ps'].includes(lang);
   const currentLang = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0];
@@ -40,6 +42,9 @@ export default function Navbar() {
     function handleClickOutside(e) {
       if (langRef.current && !langRef.current.contains(e.target)) {
         setLangOpen(false);
+      }
+      if (moreRef.current && !moreRef.current.contains(e.target)) {
+        setMoreOpen(false);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -90,6 +95,19 @@ export default function Navbar() {
             <Link href="/leaderboard" className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
               {t('nav_leaderboard')}
             </Link>
+            <div className="relative" ref={moreRef}>
+              <button onClick={() => setMoreOpen((v) => !v)} className="text-[#0D0D1A] hover:text-[#42188C] transition-colors">
+                More
+              </button>
+              {moreOpen && (
+                <div className="absolute right-0 mt-3 w-44 rounded-xl border border-[#E5E3D5] bg-white p-2 shadow-lg">
+                  <Link href="/about" onClick={() => setMoreOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-[#0D0D1A] hover:bg-[#F2F1E8]">About</Link>
+                  <Link href="/contact" onClick={() => setMoreOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-[#0D0D1A] hover:bg-[#F2F1E8]">Contact</Link>
+                  <Link href="/pitb" onClick={() => setMoreOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-[#0D0D1A] hover:bg-[#F2F1E8]">PITB Grant</Link>
+                  <Link href="/launch" onClick={() => setMoreOpen(false)} className="block rounded-lg px-3 py-2 text-sm text-[#0D0D1A] hover:bg-[#F2F1E8]">Launch</Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Right side controls */}
@@ -234,6 +252,10 @@ export default function Navbar() {
             >
               {t('nav_leaderboard')}
             </Link>
+            <Link href="/about" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]">About</Link>
+            <Link href="/contact" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]">Contact</Link>
+            <Link href="/pitb" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]">PITB Grant</Link>
+            <Link href="/launch" onClick={() => setMenuOpen(false)} className="px-3 py-2.5 rounded-lg hover:bg-[#F2F1E8] text-[#0D0D1A]">Launch</Link>
             <div className="flex gap-2 px-3 pt-3 sm:hidden">
               <Link
                 href="/signup"
