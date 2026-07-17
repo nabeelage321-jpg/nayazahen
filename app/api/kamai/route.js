@@ -30,7 +30,7 @@ async function callGroq(message, history, age) {
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...(age ? [{ role: 'system', content: `طالب علم کی عمر: ${age} سال` }] : []),
-        ...(history || []),
+        ...(Array.isArray(history) ? history.filter(m => m && m.role && m.content) : []),
         { role: 'user', content: message },
       ],
       max_tokens: 400,
@@ -73,7 +73,7 @@ async function callOpenRouterFallback(message, history, age) {
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...(age ? [{ role: 'system', content: `طالب علم کی عمر: ${age} سال` }] : []),
-        ...(history || []),
+        ...(Array.isArray(history) ? history.filter(m => m && m.role && m.content) : []),
         { role: 'user', content: message },
       ],
     }),
