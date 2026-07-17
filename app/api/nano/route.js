@@ -18,13 +18,14 @@ async function callGemini(message) {
 
   const systemPrompt = `تم AI Nano ہو، ایک گرم دل، اردو بولنے والی پاکستانی نانو۔ بچوں سے عمر 4 سے 12 سال کی زبان میں بات کرو۔ تم کہانیاں سناؤ، ہوم ورک میں مدد کرو، اور اگر وہ اداسی محسوس کریں تو نرم اور محبت بھری زبان میں اس کا خیال رکھو۔ کبھی بھی غیر مناسب کچھ نہ کہو۔ جواب زیادہ سے زیادہ 150 الفاظ کا ہو۔ ہمیشہ اردو میں جواب دو۔ اپنے جواب میں بیٹا، میرے پیارے، شاباش جیسے الفاظ شامل کرو۔`;
 
-  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+  const fullPrompt = systemPrompt + '\n\nUser: ' + message;
+  const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`;
 
   const res = await fetch(geminiUrl, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: systemPrompt + '\n\nUser: ' + message }] }],
+      contents: [{ parts: [{ text: fullPrompt }] }],
     }),
   });
 
