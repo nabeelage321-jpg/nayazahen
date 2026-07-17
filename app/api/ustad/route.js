@@ -102,6 +102,13 @@ async function callOpenRouterFallback(message, history) {
 }
 
 export async function POST(req) {
+  console.log(
+    'GROQ KEY EXISTS:',
+    !!process.env.GROQ_API_KEY,
+    'LENGTH:',
+    process.env.GROQ_API_KEY?.length
+  );
+
   try {
     const body = await req.json();
     const { message, history } = body || {};
