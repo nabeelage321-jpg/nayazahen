@@ -55,7 +55,7 @@ async function callOpenRouterFallback(message, history, age) {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'x-ai/grok-beta',
+      model: 'meta-llama/llama-3.1-8b-instruct:free',
       max_tokens: 400,
       temperature: 0.8,
       messages: [

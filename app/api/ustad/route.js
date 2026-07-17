@@ -21,7 +21,7 @@ async function callGroq(message, history) {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'llama3-8b-8192',
+      model: 'llama-3.1-8b-instant',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: message },
@@ -76,7 +76,7 @@ async function callOpenRouterFallback(message, history) {
       Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3-8b-instruct',
+      model: 'meta-llama/llama-3.1-8b-instruct:free',
       max_tokens: 400,
       temperature: 0.7,
       messages: [
