@@ -5,7 +5,8 @@ import AgePageClient from './AgePageClient';
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return AGES.map((a) => ({ age: a.id }));
+  const ids = ['age-3-4', 'age-5-6', 'age-7-8', 'age-9', 'age-10-11', 'age-12', 'age-13-15', 'age-16-18', 'age-19-21'];
+  return ids.map((age) => ({ age }));
 }
 
 export async function generateMetadata({ params }) {
