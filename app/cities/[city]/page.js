@@ -3,6 +3,8 @@ import { CITIES } from '@/data/cities';
 import { AGES, EARN_TASKS } from '@/data';
 import CityPageClient from './CityPageClient';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return CITIES.map((c) => ({ city: c.id }));
 }

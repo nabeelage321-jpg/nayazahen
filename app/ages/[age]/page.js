@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { AGES, EARN_TASKS } from '@/data/index';
 import AgePageClient from './AgePageClient';
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return AGES.map((a) => ({ age: a.id }));
 }
