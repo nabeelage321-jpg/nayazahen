@@ -37,7 +37,37 @@ const TEXT = {
   },
 };
 
-const CITY_KEYS = ['city_lahore', 'city_karachi', 'city_islamabad', 'city_faisalabad', 'city_multan', 'city_peshawar'];
+const PLATFORM_LINKS = [
+  { label: 'Cities', href: '/cities' },
+  { label: 'Ages', href: '/ages' },
+  { label: 'Earn', href: '/earn' },
+  { label: 'Games', href: '/games' },
+  { label: 'Deen', href: '/deen' },
+  { label: 'Schools', href: '/schools' },
+];
+
+const LEARN_LINKS = [
+  { label: 'Quran', href: '/deen/quran' },
+  { label: 'Daily Duas', href: '/deen/duas' },
+  { label: '99 Names', href: '/deen/99names' },
+  { label: 'Quiz', href: '/quiz' },
+];
+
+const TOOLS_LINKS = [
+  { label: 'NZ-ID', href: '/nz-id' },
+  { label: 'Premium', href: '/premium' },
+  { label: 'Teacher Portal', href: '/teacher' },
+  { label: 'Creator Hub', href: '/creator' },
+];
+
+const POPULAR_CITY_LINKS = [
+  { label: 'Lahore', href: '/cities/lahore' },
+  { label: 'Karachi', href: '/cities/karachi' },
+  { label: 'Islamabad', href: '/cities/islamabad' },
+  { label: 'Peshawar', href: '/cities/peshawar' },
+  { label: 'Quetta', href: '/cities/quetta' },
+  { label: 'Multan', href: '/cities/multan' },
+];
 
 export default function Footer() {
   const { lang } = useLang();
@@ -47,7 +77,7 @@ export default function Footer() {
   return (
     <footer dir={isRTL ? 'rtl' : 'ltr'} className="bg-[#0D0D1A] text-[#FAFAF5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 ${isRTL ? 'font-urdu text-right' : ''}`}>
+        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 ${isRTL ? 'font-urdu text-right' : ''}`}>
           {/* Brand column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-3">
@@ -65,36 +95,13 @@ export default function Footer() {
               {t('platform')}
             </h3>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/cities" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_cities')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/ages" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_ages')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/earn" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_earn')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/games" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_games')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/deen" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_deen')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/schools" className="text-white/60 hover:text-white transition-colors">
-                  {t('platform_schools')}
-                </Link>
-              </li>
+              {PLATFORM_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -104,26 +111,29 @@ export default function Footer() {
               {t('learn')}
             </h3>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/deen/quran" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_quran')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/deen/duas" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_duas')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/deen/99names" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_names')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/quiz" className="text-white/60 hover:text-white transition-colors">
-                  {t('learn_quiz')}
-                </Link>
-              </li>
+              {LEARN_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Tools column */}
+          <div>
+            <h3 className="text-sm font-semibold text-[#B8860A] uppercase tracking-wide mb-4">
+              Tools
+            </h3>
+            <ul className="space-y-2.5 text-sm">
+              {TOOLS_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -133,13 +143,10 @@ export default function Footer() {
               {t('cities')}
             </h3>
             <ul className="space-y-2.5 text-sm">
-              {CITY_KEYS.map((key) => (
-                <li key={key}>
-                  <Link
-                    href={`/city/${key.replace('city_', '')}`}
-                    className="text-white/60 hover:text-white transition-colors"
-                  >
-                    {t(key)}
+              {POPULAR_CITY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="text-white/60 hover:text-white transition-colors">
+                    {link.label}
                   </Link>
                 </li>
               ))}
