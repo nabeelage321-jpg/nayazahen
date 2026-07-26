@@ -15,6 +15,9 @@ export const metadata = {
   description: 'Free AI education for every Pakistani child. Learn, earn real PKR, play Pakistani games, study Quran in Urdu, Punjabi, Sindhi, Pashto.',
   metadataBase: new URL(siteUrl),
   alternates: { canonical: siteUrl },
+  verification: {
+    google: 'nrQfXDbfR7qFDIjiFgoF47jMFAa8myV4cVgzyKtlU64',
+  },
   openGraph: {
     title: 'Naya Zehan — Pakistan’s AI Education Platform',
     description: 'Free AI education, local-language learning, real earnings, and school tools for Pakistani children.',
