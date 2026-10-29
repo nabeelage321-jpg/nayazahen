@@ -3,14 +3,14 @@
 import { useLang } from '@/lib/lang';
 
 const stats = [
-  { value: '127,000+', label: 'kids' },
+  { value: '9', label: 'age programs' },
   { value: '60+', label: 'cities' },
   { value: '5', label: 'languages' },
   { value: '11', label: 'earning tasks' },
 ];
 
-const values = ['Free forever for basics', 'Pakistani languages first', 'Safety first', 'Real earnings'];
-const partners = ['Firebase', 'Google AI', 'Groq', 'Mistral'];
+const values = ['Free forever for basics', 'Pakistani languages first', 'Safety first', 'Learn and earn Rubax'];
+const partners = ['Firebase', 'Next.js', 'Groq', 'Mistral'];
 
 export default function AboutPage() {
   const { dir } = useLang();
