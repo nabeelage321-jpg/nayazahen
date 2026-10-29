@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useLang } from '@/lib/lang';
 import { CITIES } from '@/data/cities';
-import { FEATURES, EARN_TASKS, TESTIMONIALS } from '@/data/index';
+import { FEATURES, EARN_TASKS } from '@/data/index';
 import LeadForm from '@/components/LeadForm';
 
 /* ---------------------------------------------------------
@@ -67,7 +67,7 @@ export default function HomePage() {
 
   const stats = [
     { target: 60, suffix: '+', labelEn: 'Cities Covered', labelUr: 'شہر' },
-    { target: 500, suffix: '+', labelEn: 'Kids Learning', labelUr: 'بچے سیکھ رہے ہیں' },
+    { target: 9, suffix: '', labelEn: 'Age Programs', labelUr: 'عمر کے پروگرام' },
     { target: 5, suffix: '', labelEn: 'Languages', labelUr: 'زبانیں' },
     { target: 11, suffix: '', labelEn: 'Ways to Earn', labelUr: 'کمانے کے طریقے' },
   ];
@@ -225,30 +225,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ TESTIMONIALS ============ */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <h2 className="section-title">
-          {isEn ? 'What Families Are Saying' : 'خاندان کیا کہتے ہیں'}
-        </h2>
-        <p className="section-sub">
-          {isEn ? 'Real stories from real Pakistani families.' : 'حقیقی پاکستانی خاندانوں کی کہانیاں۔'}
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {TESTIMONIALS.map((t) => (
-            <div key={t.id} className="card p-6">
-              <div className="text-3xl mb-3">{t.avatar}</div>
-              <p className="text-ink text-sm leading-relaxed mb-4">
-                &ldquo;{isEn ? t.quoteEn : t.quoteUr}&rdquo;
-              </p>
-              <div className="text-sm font-semibold text-ink">
-                {isEn ? t.name : t.nameUr}
-              </div>
-              <div className="text-xs text-ink3">{t.role} · {t.city}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Testimonials removed in Phase 0: previous entries were unverified placeholders. Real, consented family stories will be added here when available. */}
 
       {/* ============ LEAD FORM ============ */}
       <section className="bg-paper2 py-20">
