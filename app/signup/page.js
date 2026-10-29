@@ -126,10 +126,10 @@ export default function SignupPage() {
             Welcome to Naya Zehan — your journey to learn, play and earn starts now.
           </p>
           <Link
-            href="/login"
+            href="/dashboard"
             className="btn-primary inline-block px-8 py-3 rounded-xl font-semibold"
           >
-            لاگ اِن پر جائیں
+            ڈیش بورڈ پر جائیں
           </Link>
         </div>
       </main>
