@@ -3,7 +3,7 @@
 import { useLang } from '@/lib/lang';
 
 const metrics = [
-  { value: '127,000+', label: 'children reached' },
+  { value: '50,000', label: 'Year-1 target: children' },
   { value: '60+', label: 'cities covered' },
   { value: '5', label: 'languages' },
   { value: '1', label: 'unique earning model' },
@@ -44,10 +44,10 @@ export default function PITBPage() {
             <h2 className="text-2xl font-black text-[#144a2b]">Project summary</h2>
             <ul className="mt-4 space-y-3 text-base leading-8 text-[#4b6d53]">
               <li>• Platform: <a className="text-[#2f8a4a]" href="https://nayazahen.vercel.app">nayazahen.vercel.app</a></li>
-              <li>• Current users: 127,000+</li>
+              <li>• Year-1 target: 50,000 children (target, not current users)</li>
               <li>• Cities covered: 60+</li>
               <li>• Languages: 5 Pakistani languages</li>
-              <li>• Unique feature: Kids earn real PKR while learning</li>
+              <li>• Learning model: Kids learn and earn Rubax while learning (PKR payout only after a real payout flow is built)</li>
             </ul>
           </div>
           <div className="rounded-[28px] border border-[#e5ecd9] bg-[#f7fff8] p-8 shadow-sm">
