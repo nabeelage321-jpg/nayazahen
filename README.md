@@ -1,24 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Naya Zehan (نیا ذہن)
 
-## Getting Started
+Web learning platform for Pakistani children, ages 3–21, in Urdu,
+Punjabi, Sindhi, Pashto and English. Built with Next.js 14 (App Router),
+React 18, Tailwind CSS, Firebase (Auth + Firestore) and the Groq API.
 
-First, run the development server:
+Live site: https://nayazahen.vercel.app
+
+## What this site actually does today
+
+- Sign-up with email or Google (Firebase Auth)
+- AI quiz (Groq, cached in Firestore) and AI tutors: Ustad, Kamai, Nano
+- Games, deen content, 60 city pages, age-band pages, blog
+- Rubax points for quiz / games, stored in Firestore
+- School applications, teacher uploads, creator submissions and
+  contact / lead forms, all writing to Firestore
+
+## What it does NOT do yet — do not claim otherwise
+
+- No payout / withdrawal flow. The earn page mentions JazzCash /
+  EasyPaisa and a Rs 200 minimum, but there is no payment code.
+- No premium checkout. Premium prices (Rs 299 / 599 / 1,499) are
+  display text only; the button links to sign-up.
+- Leaderboards, creator earnings, homepage stats and some blog
+  stories contain hardcoded / unverified figures. They are being
+  cleaned up step by step — see `nayazahen-agent.md` (kept outside
+  the repo until the owner says to push it).
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm ci
+cp .env.example .env.local   # then fill in your own values, see .env.example
+npm run dev                  # http://localhost:3000
+npm run build
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+If Firebase env vars are missing, the site still builds and loads,
+but sign-in, Rubax and form submissions will not work until the
+`NEXT_PUBLIC_FIREBASE_*` values are set (in Vercel for the live site).
+That behaviour is intentional — see the comment in `lib/firebase.js`.
 
 ## School onboarding and communication templates
 
@@ -53,18 +74,3 @@ Your child has been invited to explore Naya Zehan. Please review the safety guid
 
 Thank you,
 The Naya Zehan Team
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
