@@ -1,0 +1,79 @@
+// Naya Zehan — Firestore security rules (DRAFT, Phase 0)
+// ------------------------------------------------------------------
+// DO NOT publish this file blindly. Test it in the Firebase console
+// Rules Playground first, with a real signed-in account and with an
+// anonymous visitor, before publishing.
+// Two known gaps this file alone does NOT fix (see agent.md v3.1):
+//  1. Rubax is currently awarded by client-side code writing to the
+//     user's own document. Owner-only rules stop OTHER users editing
+//     your balance, but they do not stop a user inflating their OWN
+//     balance. Server-side awarding is required before any payout.
+//  2. /api/quiz currently writes quiz_cache with the client SDK
+//     from a server route (no service account). Until that route is
+//     moved to the Firebase Admin SDK, quiz_cache cannot be locked
+//     to server-only writes without breaking quiz caching.
+// ------------------------------------------------------------------
+
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // A signed-in user may read and write ONLY their own user document.
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      match /transactions/{transactionId} {
+        allow read: if request.auth != null && request.auth.uid == userId;
+        // Writes to your own transaction history are allowed for now
+        // because Rubax awarding is still client-side. Lock this down
+        // (server-only) at the same time as server-side awarding.
+        allow write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+
+    // Public forms: anyone may CREATE a submission, nobody may read,
+    // update or delete submissions from the client. The owner reads
+    // them in the Firebase console.
+    match /leads/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /contacts/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /school_applications/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /creator_submissions/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /teacher_content/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /nz_id_requests/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+    match /launch_waitlist/{docId} {
+      allow create: if request.resource.data.size() > 0 && request.resource.data.size() < 30;
+      allow read, update, delete: if false;
+    }
+
+    // Quiz cache: readable by everyone, writable for now (see header
+    // note 2). TODO: move /api/quiz to Admin SDK, then change this
+    // to allow write: if false.
+    match /quiz_cache/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    // Everything else: deny by default.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
