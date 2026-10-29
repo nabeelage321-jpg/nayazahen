@@ -70,11 +70,6 @@ export default function RootLayout({ children }) {
               '@type': 'WebSite',
               url: siteUrl,
               name: 'Naya Zehan',
-              potentialAction: {
-                '@type': 'SearchAction',
-                target: `${siteUrl}/search?q={search_term_string}`,
-                'query-input': 'required name=search_term_string',
-              },
             }),
           }}
         />
