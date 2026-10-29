@@ -13,8 +13,6 @@ const staticPages = [
   { path: '/blog', priority: 0.7, changefreq: 'weekly' },
   { path: '/schools', priority: 0.8, changefreq: 'weekly' },
   { path: '/signup', priority: 0.7, changefreq: 'monthly' },
-  { path: '/dashboard', priority: 0.6, changefreq: 'monthly' },
-  { path: '/parent', priority: 0.6, changefreq: 'monthly' },
   { path: '/creator', priority: 0.7, changefreq: 'weekly' },
   { path: '/nz-id', priority: 0.7, changefreq: 'monthly' },
   { path: '/premium', priority: 0.7, changefreq: 'monthly' },
