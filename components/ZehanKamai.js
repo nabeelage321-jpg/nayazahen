@@ -39,7 +39,7 @@ export default function ZehanKamai() {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/kamai', {
+      const res = await fetch('/api/kamai/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: trimmed, history: messages.slice(-4), age: 10 }),
