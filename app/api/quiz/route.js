@@ -8,13 +8,19 @@ export async function POST(request) {
     const safeGrade = grade || '5';
 
     const cacheRef = doc(db, 'quiz_cache', `${safeSubject}-${safeGrade}`);
-    const existing = await getDoc(cacheRef);
-
-    if (existing.exists()) {
-      const cacheData = existing.data();
-      if (cacheData?.questions) {
-        return Response.json({ questions: cacheData.questions, source: 'cache' });
+    // Cache is best-effort only: if Firestore rules deny the read (the
+    // draft rules are not published yet), fall through to Groq instead
+    // of failing the whole quiz with "Missing or insufficient permissions".
+    try {
+      const existing = await getDoc(cacheRef);
+      if (existing.exists()) {
+        const cacheData = existing.data();
+        if (cacheData?.questions) {
+          return Response.json({ questions: cacheData.questions, source: 'cache' });
+        }
       }
+    } catch (cacheErr) {
+      console.error('Quiz cache read skipped:', cacheErr?.message || cacheErr);
     }
 
     const apiKey = process.env.GROQ_API_KEY;
@@ -31,7 +37,7 @@ export async function POST(request) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'llama-3.1-8b-instant',
+        model: 'openai/gpt-oss-20b',
         messages: [
           { role: 'system', content: 'You are a helpful quiz generator for Pakistani school children.' },
           { role: 'user', content: prompt },
@@ -54,12 +60,16 @@ export async function POST(request) {
       questions = [];
     }
 
-    await setDoc(cacheRef, {
-      questions,
-      subject: safeSubject,
-      grade: safeGrade,
-      cachedAt: new Date().toISOString(),
-    }, { merge: true });
+    try {
+      await setDoc(cacheRef, {
+        questions,
+        subject: safeSubject,
+        grade: safeGrade,
+        cachedAt: new Date().toISOString(),
+      }, { merge: true });
+    } catch (cacheErr) {
+      console.error('Quiz cache write skipped:', cacheErr?.message || cacheErr);
+    }
 
     return Response.json({ questions, source: 'groq' });
   } catch (error) {
