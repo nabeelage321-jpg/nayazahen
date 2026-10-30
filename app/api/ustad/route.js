@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 const SYSTEM_PROMPT = `You are Zehan Ustad, an AI teacher on the Naya Zehan platform for Pakistani children.
 Rules:
@@ -20,7 +19,7 @@ async function callGroq(message, history) {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
+      model: 'openai/gpt-oss-20b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: message },
@@ -67,15 +66,16 @@ async function callGroq(message, history) {
   return text;
 }
 
-async function callOpenRouterFallback(message, history) {
-  const res = await fetch(OPENROUTER_URL, {
+async function callFallback(message, history) {
+  // Old OpenRouter free model is no longer available; fall back to Groq's larger model.
+  const res = await fetch(GROQ_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'meta-llama/llama-3.1-8b-instruct:free',
+      model: 'openai/gpt-oss-120b',
       max_tokens: 400,
       temperature: 0.7,
       messages: [
@@ -87,14 +87,14 @@ async function callOpenRouterFallback(message, history) {
   });
 
   if (!res.ok) {
-    throw new Error(`openrouter_error_${res.status}`);
+    throw new Error(`fallback_error_${res.status}`);
   }
 
   const data = await res.json();
   const text = data?.choices?.[0]?.message?.content?.trim();
 
   if (!text) {
-    throw new Error('openrouter_empty_response');
+    throw new Error('fallback_empty_response');
   }
 
   return text;
@@ -131,7 +131,7 @@ export async function POST(req) {
 
       // Fallback to OpenRouter if Groq fails for any other reason.
       try {
-        const text = await callOpenRouterFallback(message, history);
+        const text = await callFallback(message, history);
         return NextResponse.json({ text, provider: 'openrouter' });
       } catch (fallbackErr) {
         console.error('Zehan Ustad — both providers failed:', groqErr, fallbackErr);
