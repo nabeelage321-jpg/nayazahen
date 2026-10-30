@@ -59,8 +59,19 @@ async function callMistral(city, age, topic) {
     throw new Error('mistral_empty_response');
   }
 
-  const parsed = JSON.parse(text);
-  return parsed;
+  // Models often wrap JSON in markdown fences; strip them and extract
+  // the first {...} object before parsing, instead of failing to fallback.
+  try {
+    return JSON.parse(text);
+  } catch (parseErr) {
+    const cleaned = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+    const start = cleaned.indexOf('{');
+    const end = cleaned.lastIndexOf('}');
+    if (start !== -1 && end > start) {
+      return JSON.parse(cleaned.slice(start, end + 1));
+    }
+    throw parseErr;
+  }
 }
 
 export async function POST(req) {
