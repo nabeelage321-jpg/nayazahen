@@ -27,7 +27,7 @@ async function callMistral(city, age, topic) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: 'mistral-small',
+      model: 'mistral-small-latest',
       temperature: 0.8,
       max_tokens: 900,
       messages: [
