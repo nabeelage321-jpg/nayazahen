@@ -13,9 +13,9 @@ const POSTS = [
     titleEn: 'Why AI Education Is Pakistan\u2019s Best Shot at Closing the Learning Gap',
     titleUr: 'پاکستان میں AI تعلیم — سیکھنے کے فرق کو ختم کرنے کا بہترین موقع',
     excerptEn:
-      'With over 26 million children out of school, Pakistan needs scale. Here is how AI tutors can reach every child, in every language, for free.',
+      'Pakistan needs learning that reaches every child, in their own language, for free. Here is how AI tutors are designed to help.',
     excerptUr:
-      '2 کروڑ 60 لاکھ سے زیادہ بچے اسکول سے باہر ہیں۔ AI ٹیوٹرز کیسے ہر بچے تک مفت پہنچ سکتے ہیں۔',
+      'پاکستان کو ایسی تعلیم چاہیے جو ہر بچے تک اس کی اپنی زبان میں مفت پہنچے۔ AI ٹیوٹرز اس میں کیسے مدد کے لیے بنائے گئے ہیں۔',
   },
   {
     slug: 'kids-earning-real-money-online',
@@ -23,12 +23,12 @@ const POSTS = [
     category: 'Kids Earning',
     categoryUr: 'بچوں کی کمائی',
     readTime: '5 min read',
-    titleEn: 'How Kids as Young as 7 Are Earning Real PKR on Naya Zehan',
-    titleUr: '7 سال کے بچے نیا ذہن پر حقیقی روپے کیسے کما رہے ہیں',
+    titleEn: 'How Learning and Earning Rubax Works on Naya Zehan',
+    titleUr: 'نیا ذہن پر Rubax سیکھنا اور کمانا کیسے کام کرتا ہے',
     excerptEn:
-      'From image labelling to voice recording, small tasks are turning into real JazzCash payments for Pakistani families.',
+      'Rubax points, parent approval, and what still has to be built before any real payout.',
     excerptUr:
-      'تصویر لیبلنگ سے آواز ریکارڈنگ تک، چھوٹے کام اب اصل JazzCash ادائیگیوں میں بدل رہے ہیں۔',
+      'Rubax پوائنٹس، والدین کی منظوری، اور اصل ادائیگی سے پہلے کیا بنانا باقی ہے۔',
   },
   {
     slug: 'urdu-ai-why-it-matters',
@@ -39,9 +39,9 @@ const POSTS = [
     titleEn: 'Why Urdu-First AI Changes Everything for Pakistani Learners',
     titleUr: 'اردو میں AI — پاکستانی طلبہ کے لیے ایک انقلاب',
     excerptEn:
-      'Most AI tools are built for English speakers first. We flipped the order — and the results speak for themselves.',
+      'Most AI tools are built for English speakers first. Here is why flipping that order matters for Pakistani learners.',
     excerptUr:
-      'زیادہ تر AI ٹولز انگریزی بولنے والوں کے لیے بنتے ہیں۔ ہم نے ترتیب بدل دی۔',
+      'زیادہ تر AI ٹولز انگریزی بولنے والوں کے لیے بنتے ہیں۔ ترتیب بدلنے سے پاکستانی طلبہ کو کیا فائدہ ہوتا ہے۔',
   },
   {
     slug: 'lahore-ai-learning-stories',
@@ -52,9 +52,9 @@ const POSTS = [
     titleEn: 'Lahore\u2019s Young Learners: Inside a City Embracing AI Education',
     titleUr: 'لاہور کے نوجوان سیکھنے والے — AI تعلیم اپنانے والا شہر',
     excerptEn:
-      'From Model Town to Walled City, families across Lahore are logging in every evening to learn together.',
+      'What Lahore families can do on Naya Zehan today: city learning, games, quiz, and Deen.',
     excerptUr:
-      'ماڈل ٹاؤن سے اندرون شہر تک، لاہور کے خاندان ہر شام مل کر سیکھ رہے ہیں۔',
+      'لاہور کے خاندان نیا ذہن پر آج کیا کر سکتے ہیں: شہر کی تعلیم، گیمز، کوئز، اور دین۔',
   },
   {
     slug: 'karachi-ai-learning-stories',
@@ -65,9 +65,9 @@ const POSTS = [
     titleEn: 'Karachi\u2019s Digital Generation: Learning and Earning by the Sea',
     titleUr: 'کراچی کی ڈیجیٹل نسل — سیکھنا اور کمانا سمندر کنارے',
     excerptEn:
-      'Pakistan\u2019s largest city has the country\u2019s fastest-growing base of young Naya Zehan earners.',
+      'What Karachi families can do on Naya Zehan today: city learning, games, quiz, and Deen.',
     excerptUr:
-      'پاکستان کا سب سے بڑا شہر — نیا ذہن کے نوجوان کمانے والوں کی سب سے تیزی سے بڑھنے والی تعداد۔',
+      'کراچی کے خاندان نیا ذہن پر آج کیا کر سکتے ہیں: شہر کی تعلیم، گیمز، کوئز، اور دین۔',
   },
   {
     slug: 'quran-ai-companion',
@@ -78,9 +78,9 @@ const POSTS = [
     titleEn: 'Meet the AI Companion Helping Kids Memorize the Quran',
     titleUr: 'وہ AI ساتھی جو بچوں کو قرآن حفظ کرنے میں مدد دیتا ہے',
     excerptEn:
-      'Our Deen section pairs gentle AI guidance with tajweed correction — built with input from local qaris.',
+      'The Deen section offers Quran, duas, and the 99 Names to explore with gentle guidance.',
     excerptUr:
-      'ہمارا دین سیکشن نرم AI رہنمائی کو تجوید کی اصلاح کے ساتھ ملاتا ہے — مقامی قاریوں کے تعاون سے۔',
+      'ہمارا دین سیکشن قرآن، دعائیں، اور اللہ کے 99 نام نرم رہنمائی کے ساتھ پیش کرتا ہے۔',
   },
   {
     slug: 'online-school-guide-pakistan',
@@ -91,9 +91,9 @@ const POSTS = [
     titleEn: 'The Complete Guide to Online Schooling in Pakistan (2026)',
     titleUr: 'پاکستان میں آن لائن تعلیم کا مکمل رہنما (2026)',
     excerptEn:
-      'Everything parents need to know: costs, accreditation, screen time, and how Naya Zehan fits in.',
+      'What parents should check: language, age fit, safety, screen time, and how Naya Zehan fits in.',
     excerptUr:
-      'والدین کے لیے ہر ضروری بات — اخراجات، منظوری، اسکرین ٹائم، اور نیا ذہن کا کردار۔',
+      'والدین کو کیا جانچنا چاہیے: زبان، عمر کی مناسبت، حفاظت، اسکرین ٹائم، اور نیا ذہن کا کردار۔',
   },
   {
     slug: 'jazzcash-payments-explained',
@@ -101,12 +101,12 @@ const POSTS = [
     category: 'Payments',
     categoryUr: 'ادائیگیاں',
     readTime: '5 min read',
-    titleEn: 'How JazzCash Withdrawals Work for Young Naya Zehan Earners',
-    titleUr: 'نوجوان کمانے والوں کے لیے JazzCash نکلوانا کیسے کام کرتا ہے',
+    titleEn: 'How JazzCash Payments Are Planned to Work for Naya Zehan Earners',
+    titleUr: 'نیا ذہن کے کمانے والوں کے لیے JazzCash ادائیگیاں کیسے منصوبہ کی گئی ہیں',
     excerptEn:
-      'A step-by-step look at minimum withdrawals, parent approval, and getting paid safely under 18.',
+      'Planned steps only: parent wallet, parent approval, and why no payout is live yet.',
     excerptUr:
-      'کم از کم نکلوانے کی رقم، والدین کی منظوری، اور 18 سال سے کم عمر میں محفوظ ادائیگی کا مکمل طریقہ۔',
+      'صرف منصوبہ شدہ مراحل: والدین کا والٹ، والدین کی منظوری، اور ادائیگی ابھی کیوں شروع نہیں ہوئی۔',
   },
 ];
 
