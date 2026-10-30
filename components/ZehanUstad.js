@@ -45,7 +45,7 @@ export default function ZehanUstad() {
     setFreeCount((prev) => prev + 1);
 
     try {
-      const res = await fetch('/api/ustad', {
+      const res = await fetch('/api/ustad/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage, history: messages.slice(-6) }),
