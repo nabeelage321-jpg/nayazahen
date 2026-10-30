@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
 const SYSTEM_PROMPT = `You are Zehan Kamai, an AI earning mentor on Naya Zehan platform for Pakistani children.
 Rules:
@@ -14,7 +13,7 @@ Rules:
 
 async function callGroq(message, history, age) {
   console.log('Kamai Groq request body:', JSON.stringify({
-    model: 'llama-3.1-8b-instant',
+    model: 'openai/gpt-oss-20b',
     messages: 'check'
   }));
 
@@ -25,7 +24,7 @@ async function callGroq(message, history, age) {
       Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
+      model: 'openai/gpt-oss-20b',
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
         ...(age ? [{ role: 'system', content: `طالب علم کی عمر: ${age} سال` }] : []),
@@ -58,15 +57,16 @@ async function callGroq(message, history, age) {
   return text;
 }
 
-async function callOpenRouterFallback(message, history, age) {
-  const res = await fetch(OPENROUTER_URL, {
+async function callFallback(message, history, age) {
+  // Old OpenRouter free model is no longer available; fall back to Groq's larger model.
+  const res = await fetch(GROQ_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'mistralai/mistral-7b-instruct:free',
+      model: 'openai/gpt-oss-120b',
       max_tokens: 400,
       temperature: 0.8,
       messages: [
@@ -79,14 +79,14 @@ async function callOpenRouterFallback(message, history, age) {
   });
 
   if (!res.ok) {
-    throw new Error(`openrouter_error_${res.status}`);
+    throw new Error(`fallback_error_${res.status}`);
   }
 
   const data = await res.json();
   const text = data?.choices?.[0]?.message?.content?.trim();
 
   if (!text) {
-    throw new Error('openrouter_empty_response');
+    throw new Error('fallback_empty_response');
   }
 
   return text;
@@ -110,7 +110,7 @@ export async function POST(req) {
     } catch (groqErr) {
       console.error('Zehan Kamai — Groq failed, trying OpenRouter:', groqErr);
       try {
-        const text = await callOpenRouterFallback(message, history, age);
+        const text = await callFallback(message, history, age);
         return NextResponse.json({ text, provider: 'openrouter' });
       } catch (fallbackErr) {
         console.error('Zehan Kamai — both providers failed:', groqErr, fallbackErr);
