@@ -38,6 +38,14 @@ const blogSlugs = [
   'karachi-ai-education',
   'jazzcash-kids-earn',
   'pakistan-online-school-guide',
+  'ai-education-pakistan-2026',
+  'kids-earning-real-money-online',
+  'urdu-ai-why-it-matters',
+  'lahore-ai-learning-stories',
+  'karachi-ai-learning-stories',
+  'quran-ai-companion',
+  'online-school-guide-pakistan',
+  'jazzcash-payments-explained',
 ];
 
 export default function sitemap() {
