@@ -57,7 +57,18 @@ export async function POST(request) {
     try {
       questions = JSON.parse(content);
     } catch (error) {
-      questions = [];
+      // gpt-oss models often wrap JSON in markdown fences or add a short
+      // intro/outro. Strip fences and extract the first [...] array.
+      try {
+        const cleaned = content.replace(/```json/gi, '').replace(/```/g, '').trim();
+        const start = cleaned.indexOf('[');
+        const end = cleaned.lastIndexOf(']');
+        if (start !== -1 && end > start) {
+          questions = JSON.parse(cleaned.slice(start, end + 1));
+        }
+      } catch (parseErr) {
+        questions = [];
+      }
     }
 
     try {
