@@ -63,7 +63,7 @@ export default function NanoWidget() {
     setLoading(true);
     setMessage('نانو سوچ رہی ہیں...');
     try {
-      const res = await fetch('/api/nano', {
+      const res = await fetch('/api/nano/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: trimmed }),
